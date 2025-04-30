@@ -1,0 +1,11 @@
+## NATS ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nats-config
+  labels:
+    app.kubernetes.io/component: messaging
+data:
+  nats-server.conf: |
+    http: 8222
+

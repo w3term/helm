@@ -1,0 +1,2 @@
+WEB_TERMINAL_REGISTRY_TOKEN
+glpat-AtG-P-xrEdSueygw5y2X

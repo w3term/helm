@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth
+  labels:
+    app.kubernetes.io/component: authentication
+data:
+  GITHUB_ORG_NAME: {{ .Values.github_org_name}}
+  WEBSITE_URL: {{ .Values.website_url }}
+  ALLOWED_ORIGINS: {{ .Values.auth.allowed_origins }}

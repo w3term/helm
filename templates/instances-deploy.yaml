@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: instances
+  labels:
+    app.kubernetes.io/component: instances-manager
+spec:
+  replicas: {{ .Values.instances.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: instances-manager
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: instances-manager
+      annotations:
+        checksum/secret-instances : {{ include (print $.Template.BasePath "/instances-secret.yaml") . | sha256sum }}
+    spec:
+      imagePullSecrets: 
+      - name: registry
+      containers:
+        - name: instances
+          image: "{{ .Values.image.registry.url }}/instances:{{ .Values.instances.image.tag }}"
+          imagePullPolicy: {{ .Values.instances.image.pullPolicy | default "IfNotPresent" }}
+          envFrom:
+          - secretRef:
+              name: instances-secret
+          resources:
+            {{- toYaml .Values.instances.resources | nindent 12 }}
+      

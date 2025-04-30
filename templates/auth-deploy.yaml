@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  labels:
+    app.kubernetes.io/component: authentication
+spec:
+  replicas: {{ .Values.auth.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: authentication
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: authentication
+      annotations:
+        checksum/config-auth : {{ include (print $.Template.BasePath "/auth-cm.yaml") . | sha256sum }}
+        checksum/secret-auth : {{ include (print $.Template.BasePath "/auth-secret.yaml") . | sha256sum }}
+    spec:
+      imagePullSecrets: 
+      - name: registry
+      containers:
+        - name: auth
+          image: "{{ .Values.image.registry.url }}/auth:{{ .Values.auth.image.tag }}"
+          imagePullPolicy: {{ .Values.auth.image.pullPolicy | default "IfNotPresent" }}
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          envFrom:
+          - secretRef:
+              name: auth
+          - configMapRef:
+              name: auth
+          resources:
+            {{- toYaml .Values.auth.resources | nindent 12 }}
+      

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wss
+  labels:
+    app.kubernetes.io/component: websocket-server
+spec:
+  replicas: {{ .Values.instances.replicas | default 1 }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: websocket-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: websocket-server
+      annotations:
+        checksum/config-wss : {{ include (print $.Template.BasePath "/wss-cm.yaml") . | sha256sum }}
+        checksum/secret-wss : {{ include (print $.Template.BasePath "/wss-secret.yaml") . | sha256sum }}
+    spec:
+      imagePullSecrets: 
+      - name: registry
+      containers:
+        - name: wss
+          image: "{{ .Values.image.registry.url }}/wss:{{ .Values.wss.image.tag }}"
+          imagePullPolicy: {{ .Values.instances.image.pullPolicy | default "IfNotPresent" }}
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+          env:
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: wss-secret
+                key: JWT_SECRET
+          envFrom:
+          - configMapRef:
+              name: wss-config
+          volumeMounts:
+          - name: ssh
+            mountPath: /etc/keys
+          resources:
+            {{- toYaml .Values.instances.resources | nindent 12 }}
+      volumes:
+      - name: ssh
+        secret:
+          secretName: wss-secret
+          items:
+          - key: SSH_PRIVATE_KEY
+            path: cka
+      

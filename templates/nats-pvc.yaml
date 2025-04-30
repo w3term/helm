@@ -1,0 +1,21 @@
+{{- if .Values.nats.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nats-pvc
+  labels:
+    app.kubernetes.io/component: messaging
+spec:
+  accessModes:
+    - {{ .Values.nats.persistence.accessMode | default "ReadWriteOnce" }}
+  resources:
+    requests:
+      storage: {{ .Values.nats.persistence.size | default "1Gi" }}
+  {{- if .Values.nats.persistence.storageClass }}
+  {{- if (eq "-" .Values.nats.persistence.storageClass) }}
+  storageClassName: ""
+  {{- else }}
+  storageClassName: "{{ .Values.nats.persistence.storageClass }}"
+  {{- end }}
+  {{- end }}
+{{- end }}
