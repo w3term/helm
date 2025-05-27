@@ -6,7 +6,6 @@ metadata:
   labels:
     app.kubernetes.io/component: database
 spec:
-  replicas: {{ .Values.postgres.replicas | default 1 }}
   selector:
     matchLabels:
       app.kubernetes.io/component: database
@@ -33,10 +32,5 @@ spec:
             {{- toYaml .Values.postgres.resources | nindent 12 }}
       volumes:
         - name: postgres-data
-          {{- if .Values.postgres.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: postgres-pvc
-          {{- else }}
           emptyDir: {}
-          {{- end }}
 {{- end }}

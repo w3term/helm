@@ -1,5 +1,3 @@
-## NATS Deployment
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -7,7 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/component: messaging
 spec:
-  replicas: {{ .Values.nats.replicas | default 1 }}
   selector:
     matchLabels:
       app.kubernetes.io/component: messaging
@@ -30,34 +27,12 @@ spec:
             - name: cluster
               containerPort: 6222
               protocol: TCP
-          {{- if .Values.nats.auth.enabled }}
-          args:
-            - "--user"
-            - "$(NATS_USER)"
-            - "--pass"
-            - "$(NATS_PASSWORD)"
-          envFrom:
-          - secretRef:
-              name: nats-secret
-          {{- end }}
           resources:
             {{- toYaml .Values.nats.resources | nindent 12 }}
           volumeMounts:
             - name: nats-config
               mountPath: /etc/nats
-            {{- if .Values.nats.persistence.enabled }}
-            - name: nats-data
-              mountPath: /data
-            {{- end }}
       volumes:
         - name: nats-config
           configMap:
             name: nats-config
-        {{- if .Values.nats.persistence.enabled }}
-        - name: nats-data
-          persistentVolumeClaim:
-            claimName: nats-pvc
-        {{- else }}
-        - name: nats-data
-          emptyDir: {}
-        {{- end }}
