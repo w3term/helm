@@ -1,4 +1,4 @@
-
+{{- if not .Values.instances.database_url }}
 {{- if .Values.postgres.persistence.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -19,4 +19,5 @@ spec:
   storageClassName: "{{ .Values.postgres.persistence.storageClass }}"
   {{- end }}
   {{- end }}
+{{- end }}
 {{- end }}

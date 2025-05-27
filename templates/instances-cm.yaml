@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: instances-cm
+  labels:
+    app.kubernetes.io/component: instances-manager
+data:
+  TEMPLATE_ID: {{ .Values.instances.instance_id }}
+  INSTANCE_TYPE_ID: {{ .Values.instances.instance_type }}

@@ -1,0 +1,8 @@
+releases:
+  - name: terminal
+    namespace: terminal
+    labels:
+      app: terminal
+    chart: .
+    values:
+    - values.yaml

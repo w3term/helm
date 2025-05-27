@@ -32,6 +32,11 @@ spec:
               secretKeyRef:
                 name: wss-secret
                 key: JWT_SECRET
+          - name: NATS_URL
+            valueFrom:
+              secretKeyRef:
+                name: wss-secret
+                key: NATS_URL
           envFrom:
           - configMapRef:
               name: wss-config

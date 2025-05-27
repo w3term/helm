@@ -5,6 +5,5 @@ metadata:
   labels:
     app.kubernetes.io/component: websocket-server
 data:
-  NATS_URL: {{ .Values.wss.nats_url }}
   VM_USER: {{ .Values.wss.vm_user }}
   ALLOWED_ORIGINS: {{ .Values.wss.allowed_origins }}

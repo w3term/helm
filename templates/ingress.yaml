@@ -4,7 +4,7 @@ metadata:
   name: ingress
 spec:
   rules:
-  - host: www.91.92.152.243.nip.io
+  - host: www.{{ .Values.domain }}
     http:
       paths:
       - path: /
@@ -14,7 +14,7 @@ spec:
             name: www
             port:
               number: 80   
-  - host: auth.91.92.152.243.nip.io
+  - host: auth.{{ .Values.domain }}
     http:
       paths:
       - path: /
@@ -24,7 +24,7 @@ spec:
             name: auth
             port:
               number: 80
-  - host: wss.91.92.152.243.nip.io
+  - host: wss.{{ .Values.domain }}
     http:
       paths:
       - path: /

@@ -1,2 +1,3 @@
-WEB_TERMINAL_REGISTRY_TOKEN
-glpat-AtG-P-xrEdSueygw5y2X
+## Purpose
+
+Helm packaging of the microservices part of the web-terminal application

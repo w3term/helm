@@ -21,3 +21,9 @@
 .idea/
 *.tmproj
 .vscode/
+# Configuration files
+values.yaml
+secrets.yaml
+# Other
+README.md
+helmfile.yaml

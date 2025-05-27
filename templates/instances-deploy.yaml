@@ -15,6 +15,7 @@ spec:
         app.kubernetes.io/component: instances-manager
       annotations:
         checksum/secret-instances : {{ include (print $.Template.BasePath "/instances-secret.yaml") . | sha256sum }}
+        checksum/config-instances : {{ include (print $.Template.BasePath "/instances-cm.yaml") . | sha256sum }}
     spec:
       imagePullSecrets: 
       - name: registry
@@ -25,6 +26,8 @@ spec:
           envFrom:
           - secretRef:
               name: instances-secret
+          - configMapRef:
+              name: instances-cm
           resources:
             {{- toYaml .Values.instances.resources | nindent 12 }}
       
