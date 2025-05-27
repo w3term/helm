@@ -23,10 +23,10 @@ update version in helm chart:
   stage: versions
   image: lucj/ci:1.1
   script:
-    - git config --global user.email "devops@exoscale.dev"
-    - git config --global user.name "Exoscale Learning"
+    - git config --global user.email "devops@terminal.dev"
+    - git config --global user.name "Web Terminal"
     - git remote remove gitlab_origin 2>/dev/null || true 
-    - git remote add gitlab_origin https://oauth2:${GITLAB_TOKEN}@gitlab.com/exoscale-learning/helm.git
+    - git remote add gitlab_origin https://oauth2:${GITLAB_TOKEN}@gitlab.com/web-terminal/terminal.git
     # Helm chart version
     - yq -i ".version=\"${CI_COMMIT_TAG}\"" ./Chart.yaml
     - git add ./Chart.yaml
@@ -43,6 +43,6 @@ upload helm chart:
     - echo "about to package and push helm chart to GitLab OCI registry"
     - helm registry login $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - helm package . --version $CI_COMMIT_TAG
-    - helm push ./workshops-$CI_COMMIT_TAG.tgz oci://$CI_REGISTRY/exoscale-learning
+    - helm push ./terminal-$CI_COMMIT_TAG.tgz oci://$CI_REGISTRY/web-terminal
   only:
     - tags
