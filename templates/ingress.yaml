@@ -2,6 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  {{- if .Values.tls.enabled }}
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.tls.cluster_issuer }}
+  {{- end }}
 spec:
   rules:
   - host: www.{{ .Values.domain }}
@@ -34,3 +38,11 @@ spec:
             name: wss
             port:
               number: 80
+  {{- if .Values.tls.enabled }}
+  tls:
+    - hosts:
+      - www.{{ .Values.domain }}
+      - auth.{{ .Values.domain }}
+      - wss.{{ .Values.domain }}
+      secretName: terminal-tls
+  {{- end }}

@@ -6,4 +6,4 @@ metadata:
     app.kubernetes.io/component: websocket-server
 data:
   VM_USER: {{ .Values.wss.vm_user }}
-  ALLOWED_ORIGINS: {{ .Values.wss.allowed_origins }}
+  ALLOWED_ORIGINS: {{ .Values.website_url }}

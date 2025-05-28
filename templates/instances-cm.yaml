@@ -5,5 +5,5 @@ metadata:
   labels:
     app.kubernetes.io/component: instances-manager
 data:
-  TEMPLATE_ID: {{ .Values.instances.instance_id }}
-  INSTANCE_TYPE_ID: {{ .Values.instances.instance_type }}
+  CKA_TEMPLATE_ID: {{ .Values.vms.cka.instance_id }}
+  CKA_INSTANCE_TYPE_ID: {{ .Values.vms.cka.instance_type }}

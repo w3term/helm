@@ -7,4 +7,4 @@ metadata:
 data:
   GITHUB_ORG_NAME: {{ .Values.github_org_name}}
   WEBSITE_URL: {{ .Values.website_url }}
-  ALLOWED_ORIGINS: {{ .Values.auth.allowed_origins }}
+  ALLOWED_ORIGINS: {{ .Values.website_url }}
