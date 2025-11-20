@@ -36,7 +36,8 @@ postgres:
     tag: 17.4-alpine3.21
 
 
-## The following contains sensitive data and should be encrypted
+# The following contains sensitive data. For production env, it's better to use a SOPS / age encrypted `secrets.yaml`
+# containing all the properties defined below.
 
 jwt_secret:
 
