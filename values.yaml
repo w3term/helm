@@ -1,0 +1,78 @@
+# Global
+domain: 
+tls:
+  enabled: true
+  cluster_issuer: letsencrypt 
+
+# VMs available
+vms:
+    cka:
+        template_id:
+        instance_type:
+        quota:
+    k8s: 
+    k3s: 
+
+# Services
+auth:
+  image:
+    tag: v1.0.13
+wss:
+  image:
+    tag: v1.0.7
+instances:
+  image:
+    tag: v1.0.7
+www:
+  image:
+    tag: v1.0.4
+nats:
+  image:
+    repository: nats
+    tag: 2.11.2-alpine
+postgres:
+  image:
+    repository: postgres
+    tag: 17.4-alpine3.21
+
+
+## The following contains sensitive data and should be encrypted
+
+jwt_secret:
+
+# Github apps
+github_applications:
+    test-app:
+        client_id: 
+        client_secret: 
+        website_url: 
+        authorization_callback_url: 
+    prod-app:
+        client_id: 
+        client_secret: 
+        website_url: 
+        authorization_callback_url: 
+
+# Registry's information
+image:
+    registry:
+        url: 
+        credentials:
+            username: 
+            password: 
+# Services
+auth:
+    github_client_id: 
+    github_client_secret: 
+wss:
+    vm_user:
+    ssh_key: 
+instances:
+    exoscale_api_key: 
+    exoscale_api_secret:
+    database_url: 
+postgres:
+    auth:
+        username: postgres
+        password: postgres
+    database: vmmanager
