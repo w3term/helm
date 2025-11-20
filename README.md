@@ -1,11 +1,6 @@
-Warning: WIP : documentation will come soon
-
-
-
-
 ## Purpose
 
-Helm packaging of the microservices part of the web-terminal application
+Helm packaging of the microservices part of the w3term application
 
 ## Prerequisites
 
