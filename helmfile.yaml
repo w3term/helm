@@ -1,10 +1,20 @@
 releases:
-  - name: terminal
-    namespace: terminal
-    labels:
-      app: terminal
-    chart: .
+  - name: w3term
+    namespace: w3term
+    chart: oci://ghcr.io/w3term/term
+    version: ...
     values:
     - values.yaml
     secrets:
     - secrets.yaml
+
+#releases:
+#  - name: w3term
+#    namespace: w3term
+#    labels:
+#      app: w3term
+#    chart: .
+#    values:
+#    - values.yaml
+#    secrets:
+#    - secrets.yaml
