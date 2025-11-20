@@ -34,3 +34,7 @@ helmfile apply
 ```bash
 helmfile destroy
 ```
+
+## Status
+
+This is still WIP, documentation will be added soon.
