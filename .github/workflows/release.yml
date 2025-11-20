@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  CHART_NAME: term
+  CHART_NAME: terminal
 
 jobs:
   release:
