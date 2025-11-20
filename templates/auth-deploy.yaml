@@ -16,6 +16,7 @@ spec:
       annotations:
         checksum/config-auth : {{ include (print $.Template.BasePath "/auth-cm.yaml") . | sha256sum }}
         checksum/secret-auth : {{ include (print $.Template.BasePath "/auth-secret.yaml") . | sha256sum }}
+        checksum/secret-github : {{ include (print $.Template.BasePath "/auth-github-apps-secret.yaml") . | sha256sum }}
     spec:
       imagePullSecrets: 
       - name: registry
@@ -27,10 +28,17 @@ spec:
             - containerPort: 3000
               protocol: TCP
           envFrom:
-          - secretRef:
-              name: auth
           - configMapRef:
               name: auth
+          - secretRef:
+              name: auth
+          volumeMounts:
+          - name: github-apps
+            mountPath: /etc/config
+            readOnly: true
           resources:
             {{- toYaml .Values.auth.resources | nindent 12 }}
-      
+      volumes:
+      - name: github-apps
+        secret:
+          secretName: auth-github-apps

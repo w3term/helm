@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: instances-vms
+  labels:
+    app.kubernetes.io/component: instances-manager
+data:
+  vms.yaml: |
+    vms:
+{{ .Values.vms | toYaml | indent 6 }}

@@ -16,6 +16,7 @@ spec:
       annotations:
         checksum/secret-instances : {{ include (print $.Template.BasePath "/instances-secret.yaml") . | sha256sum }}
         checksum/config-instances : {{ include (print $.Template.BasePath "/instances-cm.yaml") . | sha256sum }}
+        checksum/config-vms : {{ include (print $.Template.BasePath "/instances-vms-cm.yaml") . | sha256sum }}
     spec:
       imagePullSecrets: 
       - name: registry
@@ -25,9 +26,17 @@ spec:
           imagePullPolicy: {{ .Values.instances.image.pullPolicy | default "IfNotPresent" }}
           envFrom:
           - secretRef:
-              name: instances-secret
+              name: instances
           - configMapRef:
-              name: instances-cm
+              name: instances
           resources:
             {{- toYaml .Values.instances.resources | nindent 12 }}
-      
+          volumeMounts:
+          - name: vms-config
+            mountPath: /etc/config/vms.yaml
+            subPath: vms.yaml
+            readOnly: true
+      volumes:
+      - name: vms-config
+        configMap:
+          name: instances-vms

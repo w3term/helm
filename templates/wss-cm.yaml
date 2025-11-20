@@ -1,3 +1,9 @@
+{{- $urls := list -}}
+{{- range $key, $value := .Values.github_applications -}}
+  {{- $parsed := urlParse $value.website_url -}}
+  {{- $urls = append $urls (printf "%s://%s" $parsed.scheme $parsed.host) -}}
+{{- end -}}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -6,4 +12,4 @@ metadata:
     app.kubernetes.io/component: websocket-server
 data:
   VM_USER: {{ .Values.wss.vm_user }}
-  ALLOWED_ORIGINS: {{ .Values.website_url }}
+  ALLOWED_ORIGINS: "{{ join "," $urls }}"

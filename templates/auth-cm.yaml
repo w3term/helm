@@ -1,3 +1,9 @@
+{{- $urls := list -}}
+{{- range $key, $value := .Values.github_applications -}}
+  {{- $parsed := urlParse $value.website_url -}}
+  {{- $urls = append $urls (printf "%s://%s" $parsed.scheme $parsed.host) -}}
+{{- end -}}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -5,6 +11,7 @@ metadata:
   labels:
     app.kubernetes.io/component: authentication
 data:
+  {{- if .Values.github_org_name }}
   GITHUB_ORG_NAME: {{ .Values.github_org_name}}
-  WEBSITE_URL: {{ .Values.website_url }}
-  ALLOWED_ORIGINS: {{ .Values.website_url }}
+  {{- end }}
+  ALLOWED_ORIGINS: "{{ join "," $urls }}"
