@@ -18,8 +18,6 @@ spec:
         checksum/config-instances : {{ include (print $.Template.BasePath "/instances-cm.yaml") . | sha256sum }}
         checksum/config-vms : {{ include (print $.Template.BasePath "/instances-vms-cm.yaml") . | sha256sum }}
     spec:
-      imagePullSecrets: 
-      - name: registry
       containers:
         - name: instances
           image: "{{ .Values.image.registry.url }}/instances:{{ .Values.instances.image.tag }}"

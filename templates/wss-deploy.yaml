@@ -17,8 +17,6 @@ spec:
         checksum/config-wss : {{ include (print $.Template.BasePath "/wss-cm.yaml") . | sha256sum }}
         checksum/secret-wss : {{ include (print $.Template.BasePath "/wss-secret.yaml") . | sha256sum }}
     spec:
-      imagePullSecrets: 
-      - name: registry
       containers:
         - name: wss
           image: "{{ .Values.image.registry.url }}/wss:{{ .Values.wss.image.tag }}"

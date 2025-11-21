@@ -18,8 +18,6 @@ spec:
         checksum/secret-auth : {{ include (print $.Template.BasePath "/auth-secret.yaml") . | sha256sum }}
         checksum/secret-github : {{ include (print $.Template.BasePath "/auth-github-apps-secret.yaml") . | sha256sum }}
     spec:
-      imagePullSecrets: 
-      - name: registry
       containers:
         - name: auth
           image: "{{ .Values.image.registry.url }}/auth:{{ .Values.auth.image.tag }}"
