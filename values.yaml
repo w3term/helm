@@ -13,6 +13,10 @@ vms:
     k8s: 
     k3s: 
 
+# Registry's information
+registry:
+  url: ghcr.io/w3term
+  
 # Services
 auth:
   image:
@@ -54,13 +58,6 @@ github_applications:
         website_url: 
         authorization_callback_url: 
 
-# Registry's information
-image:
-    registry:
-        url: 
-        credentials:
-            username: 
-            password: 
 # Services
 auth:
     github_client_id: 
