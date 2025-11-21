@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: "{{ .Values.image.registry.url }}/auth:{{ .Values.auth.image.tag }}"
+          image: "{{ .Values.registry.url }}/auth:{{ .Values.auth.image.tag }}"
           imagePullPolicy: {{ .Values.auth.image.pullPolicy | default "IfNotPresent" }}
           ports:
             - containerPort: 3000

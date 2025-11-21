@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: wss
-          image: "{{ .Values.image.registry.url }}/www:{{ .Values.www.image.tag }}"
+          image: "{{ .Values.registry.url }}/www:{{ .Values.www.image.tag }}"
           imagePullPolicy: {{ .Values.instances.image.pullPolicy | default "IfNotPresent" }}
           resources:
             {{- toYaml .Values.www.resources | nindent 12 }}

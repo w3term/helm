@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: instances
-          image: "{{ .Values.image.registry.url }}/instances:{{ .Values.instances.image.tag }}"
+          image: "{{ .Values.registry.url }}/instances:{{ .Values.instances.image.tag }}"
           imagePullPolicy: {{ .Values.instances.image.pullPolicy | default "IfNotPresent" }}
           envFrom:
           - secretRef:
